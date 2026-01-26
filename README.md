@@ -4,15 +4,25 @@ Pipeline automatizado ETL (Extract, Transform, Load) desarrollado en Python para
 📂 Estructura del Proyecto
 Plaintext
 proyecto/
+
 ├── config.py           # Configuración (API Keys, URLs, constantes)
+
 ├── main.py             # Código principal del pipeline (ETL)
+
 ├── output/             # Directorio generado automáticamente
+
 │   └── orders/         # Datos guardados particionados
+
 │       ├── order_year=2025/
+
 │       │   └── order_month=11/
+
 │       │       └── part-0.parquet
+
 │       └── ...
+
 └── requirements.txt    # Librerías necesarias (pandas, requests, etc.)
+
 🚀 Funcionalidades
 1. Extracción Robusta (Extract)
 Conexión a API REST segura mediante requests.
