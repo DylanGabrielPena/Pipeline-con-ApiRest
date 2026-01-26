@@ -1,0 +1,25 @@
+# --- SEGURIDAD ---
+.env
+
+# --- DATOS GENERADOS ---
+output/
+
+# --- PYTHON ---
+__pycache__/
+*.pyc
+
+# --- SISTEMA OPERATIVO ---
+.DS_Store
+
+# --- ENTORNOS VIRTUALES ---
+venv/
+.venv/
+env/
+
+# --- LOGS Y JUPYTER  ---
+*.log
+.ipynb_checkpoints/
+
+# --- IDEs (VS Code / PyCharm) ---
+.vscode/
+.idea/
