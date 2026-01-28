@@ -1,4 +1,5 @@
 🛒 Ecommerce Data Pipeline (🐳 Dockerized)
+
 Pipeline automatizado ETL (Extract, Transform, Load) desarrollado en Python para extraer datos de ventas de una API, transformarlos con Pandas y almacenarlos en formato Parquet particionado de manera eficiente.
 
 El proyecto ahora se encuentra Dockerizado, lo que garantiza que funcione en cualquier máquina sin necesidad de instalar Python ni librerías manualmente.
@@ -33,6 +34,7 @@ proyecto/
         
         └── ...
 🚀 Funcionalidades
+
 🔹 Extracción Robusta (Extract)
 Conexión a API REST segura mediante requests.
 
@@ -60,11 +62,13 @@ Persistencia: Uso de Volúmenes de Docker para guardar los archivos generados en
 Seguridad: Inyección de credenciales mediante variables de entorno (.env), sin hardcodear claves en el código.
 
 🛠️ Requisitos Previos
+
 Docker Desktop (o Docker Engine + Compose) instalado.
 
 No es necesario tener Python instalado localmente.
 
 ⚙️ Configuración
+
 Clona el repositorio o descarga los archivos.
 
 Crea un archivo llamado .env en la raíz del proyecto (junto al docker-compose.yml).
@@ -79,6 +83,7 @@ API_BASE_URL=https://api.tudominio.com
 Nota: El archivo .env está en el .gitignore y .dockerignore para proteger tus claves. Nunca lo subas al repositorio.
 
 ▶️ Ejecución con Docker (Recomendado)
+
 Para construir la imagen y ejecutar el pipeline:
 
 Bash
