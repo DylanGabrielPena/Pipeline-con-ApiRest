@@ -1,69 +1,88 @@
-Ecommerce Data Pipeline
+🛒 Ecommerce Data Pipeline (🐳 Dockerized)
 Pipeline automatizado ETL (Extract, Transform, Load) desarrollado en Python para extraer datos de ventas de una API, transformarlos con Pandas y almacenarlos en formato Parquet particionado de manera eficiente.
+
+El proyecto ahora se encuentra Dockerizado, lo que garantiza que funcione en cualquier máquina sin necesidad de instalar Python ni librerías manualmente.
 
 📂 Estructura del Proyecto
 Plaintext
 proyecto/
-
-├── config.py           # Configuración (API Keys, URLs, constantes)
-
-├── main.py             # Código principal del pipeline (ETL)
-
-├── output/             # Directorio generado automáticamente
-
-│   └── orders/         # Datos guardados particionados
-
-│       ├── order_year=2025/
-
-│       │   └── order_month=11/
-
-│       │       └── part-0.parquet
-
-│       └── ...
-
-└── requirements.txt    # Librerías necesarias (pandas, requests, etc.)
-
+├── .env                   # 🔐 Variables de entorno (NO subir a Git)
+├── .dockerignore          # Archivos que Docker debe ignorar
+├── docker-compose.yml     # 🐳 Orquestación del contenedor y volúmenes
+├── Dockerfile             # Receta para construir la imagen
+├── config.py              # Lee la configuración desde variables de entorno
+├── main.py                # Código principal del pipeline (ETL)
+├── requirements.txt       # Dependencias (pandas, requests, pyarrow, etc.)
+└── output/                # 📂 Directorio donde aparecen los datos (Mapeado via Volumen)
+    └── orders/
+        ├── order_year=2025/
+        │   └── order_month=11/
+        │       └── part-0.parquet
+        └── ...
 🚀 Funcionalidades
-1. Extracción Robusta (Extract)
+🔹 Extracción Robusta (Extract)
 Conexión a API REST segura mediante requests.
 
-Sistema de Reintentos Inteligente: Implementa una estrategia de exponential backoff para manejar fallos de red o errores 5xx del servidor.
+Sistema de Reintentos Inteligente: Implementa exponential backoff para manejar fallos de red o errores 5xx.
 
 Manejo de excepciones específicas (Timeout, HTTPError, RequestException).
 
-2. Transformación de Datos (Transform)
+🔹 Transformación de Datos (Transform)
 Conversión de JSON anidado a DataFrame de Pandas.
 
-Limpieza de Fechas: Normalización de columnas de tiempo (order_date) eliminando horas innecesarias (00:00:00), manteniendo el tipo datetime64 para optimización.
+Limpieza de Fechas: Normalización de columnas de tiempo (order_date).
 
-Enriquecimiento: Creación automática de columnas order_year y order_month para la estrategia de particionado.
+Enriquecimiento: Creación automática de columnas order_year y order_month.
 
-3. Carga Optimizada (Load)
+🔹 Carga Optimizada (Load)
 Almacenamiento en formato Parquet (columnar y comprimido).
 
-Particionado Hive-Style: Los datos se guardan organizados en carpetas jerárquicas por Año y Mes (year=X/month=Y) para optimizar futuras consultas y lecturas parciales.
+Particionado Hive-Style: Datos organizados jerárquicamente (year=X/month=Y) para consultas rápidas.
+
+🔹 Infraestructura (Docker) [NUEVO]
+Aislamiento: Ejecución en contenedor independiente.
+
+Persistencia: Uso de Volúmenes de Docker para guardar los archivos generados en tu máquina local.
+
+Seguridad: Inyección de credenciales mediante variables de entorno (.env), sin hardcodear claves en el código.
 
 🛠️ Requisitos Previos
-Python 3.8+
+Docker Desktop (o Docker Engine + Compose) instalado.
 
-Librerías listadas en requirements.txt:
+No es necesario tener Python instalado localmente.
 
-Plaintext
-pandas
-requests
-pyarrow
-fastparquet (opcional, para engine de parquet)
 ⚙️ Configuración
-Asegúrate de tener un archivo config.py en la raíz con tus credenciales:
+Clona el repositorio o descarga los archivos.
 
-Python
-# config.py
-API_KEY = "tu_api_key"
-API_EMAIL = "tu_email"
-API_BASE_URL = "https://api.tudominio.com"
-▶️ Ejecución
-Para correr el pipeline completo:
+Crea un archivo llamado .env en la raíz del proyecto (junto al docker-compose.yml).
+
+Agrega tus credenciales dentro del archivo .env:
 
 Bash
-python main.py
-El script generará logs detallados en la consola indicando el progreso de la extracción, la cantidad de filas procesadas y la ubicación final de los archivos.
+# Archivo .env
+API_KEY=tu_clave_secreta_real
+API_EMAIL=tu_email@ejemplo.com
+API_BASE_URL=https://api.tudominio.com
+Nota: El archivo .env está en el .gitignore y .dockerignore para proteger tus claves. Nunca lo subas al repositorio.
+
+▶️ Ejecución con Docker (Recomendado)
+Para construir la imagen y ejecutar el pipeline:
+
+Bash
+docker-compose up --build
+¿Qué sucederá?
+Docker descargará las dependencias e iniciará el contenedor.
+
+Verás los logs en la consola (Fetching data..., Procesando...).
+
+Al finalizar, los archivos .parquet aparecerán automáticamente en tu carpeta local output/.
+
+Comandos útiles
+Detener y limpiar todo:
+
+Bash
+docker-compose down
+Verificar variables cargadas (Debug):
+
+Bash
+docker-compose run --rm etl-ecommerce env
