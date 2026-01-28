@@ -22,10 +22,15 @@ proyecto/
 ├── requirements.txt       # Dependencias (pandas, requests, pyarrow, etc.)
 
 └── output/                # 📂 Directorio donde aparecen los datos (Mapeado via Volumen)
+    
     └── orders/
+        
         ├── order_year=2025/
+        
         │   └── order_month=11/
+        
         │       └── part-0.parquet
+        
         └── ...
 🚀 Funcionalidades
 🔹 Extracción Robusta (Extract)
