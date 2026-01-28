@@ -6,13 +6,21 @@ El proyecto ahora se encuentra Dockerizado, lo que garantiza que funcione en cua
 📂 Estructura del Proyecto
 Plaintext
 proyecto/
+
 ├── .env                   # 🔐 Variables de entorno (NO subir a Git)
+
 ├── .dockerignore          # Archivos que Docker debe ignorar
+
 ├── docker-compose.yml     # 🐳 Orquestación del contenedor y volúmenes
+
 ├── Dockerfile             # Receta para construir la imagen
+
 ├── config.py              # Lee la configuración desde variables de entorno
+
 ├── main.py                # Código principal del pipeline (ETL)
+
 ├── requirements.txt       # Dependencias (pandas, requests, pyarrow, etc.)
+
 └── output/                # 📂 Directorio donde aparecen los datos (Mapeado via Volumen)
     └── orders/
         ├── order_year=2025/
