@@ -36,6 +36,7 @@ proyecto/
 🚀 Funcionalidades
 
 🔹 Extracción Robusta (Extract)
+
 Conexión a API REST segura mediante requests.
 
 Sistema de Reintentos Inteligente: Implementa exponential backoff para manejar fallos de red o errores 5xx.
@@ -43,6 +44,7 @@ Sistema de Reintentos Inteligente: Implementa exponential backoff para manejar f
 Manejo de excepciones específicas (Timeout, HTTPError, RequestException).
 
 🔹 Transformación de Datos (Transform)
+
 Conversión de JSON anidado a DataFrame de Pandas.
 
 Limpieza de Fechas: Normalización de columnas de tiempo (order_date).
@@ -50,11 +52,13 @@ Limpieza de Fechas: Normalización de columnas de tiempo (order_date).
 Enriquecimiento: Creación automática de columnas order_year y order_month.
 
 🔹 Carga Optimizada (Load)
+
 Almacenamiento en formato Parquet (columnar y comprimido).
 
 Particionado Hive-Style: Datos organizados jerárquicamente (year=X/month=Y) para consultas rápidas.
 
 🔹 Infraestructura (Docker) [NUEVO]
+
 Aislamiento: Ejecución en contenedor independiente.
 
 Persistencia: Uso de Volúmenes de Docker para guardar los archivos generados en tu máquina local.
@@ -80,7 +84,7 @@ Bash
 API_KEY=tu_clave_secreta_real
 API_EMAIL=tu_email@ejemplo.com
 API_BASE_URL=https://api.tudominio.com
-Nota: El archivo .env está en el .gitignore y .dockerignore para proteger tus claves. Nunca lo subas al repositorio.
+Nota: El archivo .env está en el .gitignore para proteger tus claves. Nunca lo subas al repositorio.
 
 ▶️ Ejecución con Docker (Recomendado)
 
@@ -88,6 +92,7 @@ Para construir la imagen y ejecutar el pipeline:
 
 Bash
 docker-compose up --build
+
 ¿Qué sucederá?
 Docker descargará las dependencias e iniciará el contenedor.
 
